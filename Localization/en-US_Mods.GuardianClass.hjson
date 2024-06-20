@@ -1,0 +1,36 @@
+# This file will automatically update with entries for new content after a build and reload.
+
+Items: {
+	WoodenShield: {
+		DisplayName: Wooden Shield
+		Tooltip:
+			'''
+			Template of an item
+			Replacing this tooltip is duty 
+			It's snowing on Mt.Fuji
+			'''
+	}
+
+	TestShield: {
+		DisplayName: Test Shield
+		Tooltip: ""
+	}
+
+	Meatshield: {
+		DisplayName: Meatshield
+		Tooltip: ""
+	}
+
+	TheMaw: {
+		DisplayName: The Maw
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	WoodenShieldProjectile.DisplayName: Wooden Shield Projectile
+	TestShieldProjectile.DisplayName: Test Shield Projectile
+	MeatshieldProjectile.DisplayName: Meatshield Projectile
+	TheMawProjectile.DisplayName: The Maw Projectile
+	TheMawSpitProjectile.DisplayName: The Maw Spit Projectile
+}
