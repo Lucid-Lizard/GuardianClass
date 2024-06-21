@@ -30,7 +30,7 @@ namespace GuardianClass.Content.Items
             
             Resistance = 0.25f;
 
-            attackDistance = 15;
+            attackDistance = 25;
             idleDistance = 25;
         }
     }
@@ -178,6 +178,7 @@ namespace GuardianClass.Content.Items
 
         public override void PostDraw(Color lightColor)
         {
+            base.PostDraw(lightColor);
            // Main.NewText(Override);
             if (StickedNPC >= 0)
             {

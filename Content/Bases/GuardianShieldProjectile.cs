@@ -68,6 +68,11 @@ namespace GuardianClass.Content.Bases
 
         public float AttackOffset = 0;
 
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12; // The length of old position to be recorded
+            ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
+        }
         public override void SetDefaults()
         {
             Projectile.tileCollide = false;
@@ -132,6 +137,8 @@ namespace GuardianClass.Content.Bases
             return true;
         }
 
+        public bool BlockFXFlag = false;
+        public int BlockFXTimer = 0;
         public override void AI()
         {
             currentStage = CalculateDurabilityStage(shieldItem.DurabilityStages, Durability, shieldItem.MaxDurability);
@@ -164,6 +171,7 @@ namespace GuardianClass.Content.Bases
                     }
                 case ShieldState.Idle:
                     {
+                        Array.Clear(Projectile.oldPos);
                         if (Mouse.GetState().RightButton == ButtonState.Pressed && CanAttack)
                         {
                             AttackTimer = 0;
@@ -253,8 +261,11 @@ namespace GuardianClass.Content.Bases
                     {
                         if (npc.immune[Projectile.owner] == 0)
                         {
+                            BlockFXFlag = true;
+                            BlockFXTimer = 60;
                             npc.SimpleStrikeNPC(0, Projectile.direction, false, knockBack: 2);
                             BlockNPCEffect(npc);
+                            
                         }
                     }
                     npc.immune[Projectile.owner] = 20;
@@ -306,6 +317,12 @@ namespace GuardianClass.Content.Bases
             if (Durability <= 0)
             {
                state = ShieldState.Break;
+            }
+
+            if(BlockFXFlag == true && BlockFXTimer-- == 0)
+            {
+                BlockFXTimer = 0;
+                BlockFXFlag = false;
             }
         }
         public override void OnKill(int timeLeft)
@@ -427,16 +444,42 @@ namespace GuardianClass.Content.Bases
 
             bool shouldflip = Projectile.velocity.X < 0;
             Projectile.direction = shouldflip ? -1 : 1;
-            
+
+            if (state == ShieldState.ThrustStart)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+
+                    Main.EntitySpriteDraw(texture, (Projectile.oldPos[i] + new Vector2(Projectile.width / 2, Projectile.height / 2)) - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * currentStage), Projectile.width, Projectile.height), lightColor * MathHelper.Lerp(0.5f, 0f,(float)i / 12f), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, MathHelper.Lerp(Scale + 0.1f, 0, (float)i / 12f), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f) ;
+                }
+            }
+
             Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * currentStage), Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, Scale, shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            
 
             DrawExtraOverShield();
+
 
             return false;
         }
 
         public override void PostDraw(Color lightColor)
         {
+            if (BlockFXFlag)
+            {
+                Texture2D texture = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Content/Items/" + TextureName); // Get the projectile's texture
+
+
+
+                Vector2 position = Projectile.Center;
+
+
+                bool shouldflip = Projectile.velocity.X < 0;
+                Projectile.direction = shouldflip ? -1 : 1;
+
+
+                Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * currentStage), Projectile.width, Projectile.height), Color.White * MathHelper.Lerp(1f, 0f * 1.5f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float)60)), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, MathHelper.Lerp(Scale, Scale * 1.75f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float) 60)), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            }
             DrawExtraOverShield();
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

@@ -25,7 +25,7 @@ namespace GuardianClass.Content.Items
             DurabilityStages = 3;
             Resistance = 0.23f;
 
-            attackDistance = 21;
+            attackDistance = 26;
             idleDistance = 27;
         }
 
