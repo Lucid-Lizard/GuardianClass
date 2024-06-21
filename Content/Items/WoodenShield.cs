@@ -26,7 +26,7 @@ namespace GuardianClass.Content.Items
             Resistance = 0.25f;
 
             attackDistance = 15;
-            idleDistance = 25;
+            idleDistance = 16;
         }
     }
 

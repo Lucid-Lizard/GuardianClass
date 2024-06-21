@@ -20,7 +20,7 @@ namespace GuardianClass.Content.Items
             MaxDurability = 200;
 
             spawnTime = 15;
-            thrustTime = 5;
+            thrustTime = 17;
 
             DurabilityStages = 3;
             Resistance = 0.23f;
