@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using Terraria.GameContent.UI.ResourceSets;
 using Microsoft.Xna.Framework.Graphics;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
 namespace GuardianClass.Content.Items
 {
@@ -198,6 +199,8 @@ namespace GuardianClass.Content.Items
                 Vector2 vel;
 
                 Player player = Main.player[Projectile.owner];
+
+                
 
                 pos = Projectile.Center;
                 vel = Projectile.velocity;

@@ -10,6 +10,8 @@
 
 	<!-- References -->
 	<ItemGroup>
+	  <None Remove="Content\Items\ApisAegis.png" />
+	  <None Remove="Content\Items\ApisAegisProjectile.png" />
 	  <None Remove="Content\Items\Meatshield.png" />
 	  <None Remove="Content\Items\MeatshieldProjectile.png" />
 	  <None Remove="Content\Items\TheMaw.png" />

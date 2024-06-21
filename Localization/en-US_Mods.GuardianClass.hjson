@@ -25,6 +25,11 @@ Items: {
 		DisplayName: The Maw
 		Tooltip: ""
 	}
+
+	ApisAegis: {
+		DisplayName: Apis Aegis
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -33,4 +38,5 @@ Projectiles: {
 	MeatshieldProjectile.DisplayName: Meatshield Projectile
 	TheMawProjectile.DisplayName: The Maw Projectile
 	TheMawSpitProjectile.DisplayName: The Maw Spit Projectile
+	ApisAegisProjectile.DisplayName: Apis Aegis Projectile
 }
