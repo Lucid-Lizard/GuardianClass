@@ -1,4 +1,5 @@
-﻿using GuardianClass.Content.Items;
+﻿using GuardianClass.Content.DamageClasses;
+using GuardianClass.Content.Items;
 using GuardianClass.ModPlayers;
 using Microsoft.Xna.Framework;
 using System;
@@ -45,7 +46,7 @@ namespace GuardianClass.Content.Bases
         public override void SetDefaults()
         {
             Item.damage = 24;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = ModContent.GetInstance<GuardianDamage>();
             Item.width = 40;
             Item.height = 40;
             Item.useTime = 120;

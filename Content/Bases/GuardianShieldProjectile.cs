@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
+using GuardianClass.Content.DamageClasses;
 
 namespace GuardianClass.Content.Bases
 {
@@ -77,6 +78,7 @@ namespace GuardianClass.Content.Bases
         {
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
+            Projectile.DamageType = ModContent.GetInstance<GuardianDamage>();
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

@@ -40,3 +40,5 @@ Projectiles: {
 	TheMawSpitProjectile.DisplayName: The Maw Spit Projectile
 	ApisAegisProjectile.DisplayName: Apis Aegis Projectile
 }
+
+DamageClasses.GuardianDamage.DisplayName: Guardian Damage

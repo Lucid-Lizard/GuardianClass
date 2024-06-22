@@ -32,6 +32,8 @@ namespace GuardianClass.Content.Items
 
             attackDistance = 25;
             idleDistance = 25;
+
+            Item.damage = 36;
         }
     }
 
