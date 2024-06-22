@@ -253,23 +253,41 @@ namespace GuardianClass.Content.Bases
                     Durability -= (int)(npc.damage * shieldItem.Resistance);
                     g.LastDurability = Durability;
                     if (state == ShieldState.ThrustStart && npc.immune[Projectile.owner] == 0)
-                    {                      
+                    {
                         npc.StrikeNPC(npc.CalculateHitInfo(Projectile.damage, Projectile.direction, false, Projectile.knockBack));
+                        
                         StrikeNPCEffect(npc);
                     }
                     else
                     {
+                        
                         if (npc.immune[Projectile.owner] == 0)
                         {
-                            BlockFXFlag = true;
-                            BlockFXTimer = 60;
-                            npc.SimpleStrikeNPC(0, Projectile.direction, false, knockBack: 2);
-                            BlockNPCEffect(npc);
                             
+                            
+                            if (npc.immune[Projectile.owner] == 0)
+                            {
+                                BlockFXFlag = true;
+                                BlockFXTimer = 45;
+                                BlockNPCEffect(npc);
+                            }
                         }
                     }
                     npc.immune[Projectile.owner] = 20;
                 }
+
+                if (player.velocity.X != 0)
+                {
+                    npc.velocity.X = player.velocity.X * 1.2f;
+                }
+                else
+                {
+                    npc.velocity.X *= -1;
+                }
+
+
+
+
             }
 
             if ((Projlist.Count + NPClist.Count) > 0 && ChangedStage)
@@ -478,7 +496,7 @@ namespace GuardianClass.Content.Bases
                 Projectile.direction = shouldflip ? -1 : 1;
 
 
-                Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * currentStage), Projectile.width, Projectile.height), Color.White * MathHelper.Lerp(1f, 0f * 1.5f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float)60)), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, MathHelper.Lerp(Scale, Scale * 1.75f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float) 60)), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * currentStage), Projectile.width, Projectile.height), Color.White * MathHelper.Lerp(1f, 0f * 1.5f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float)45)), Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, MathHelper.Lerp(Scale, Scale * 1.75f, 1 - CoolMath.EaseInCirc((float)BlockFXTimer / (float) 45)), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             DrawExtraOverShield();
         }

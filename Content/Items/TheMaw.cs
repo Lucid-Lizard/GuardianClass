@@ -55,8 +55,7 @@ namespace GuardianClass.Content.Items
 
         public override void BlockNPCEffect(NPC npc)
         {
-            npc.velocity.X = (MathF.Abs(npc.velocity.X)) * Projectile.direction;
-            npc.velocity.Y = -3;
+           
             //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
         }
 
