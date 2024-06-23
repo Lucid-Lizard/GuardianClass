@@ -18,11 +18,11 @@ namespace GuardianClass.ModPlayers
 
         public override void PreUpdate()
         {
-            if(GuardianSystem.GuardianShieldItems.Contains(Player.HeldItem.type))
+            if (GuardianSystem.GuardianShieldItems.Contains(Player.HeldItem.type))
             {
                 currentShield = (GuardianShield)Player.HeldItem.ModItem;
             }
-            if(currentShield != null)
+            if (currentShield != null)
             {
                 //Main.NewText(currentShield.Name);
             }
