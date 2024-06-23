@@ -1,30 +1,21 @@
-﻿using GuardianClass.Content.DamageClasses;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GuardianClass.Content.DamageClasses;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace GuardianClass.Content.Systems
-{
-    internal class GuardianSystem : GlobalItem
-    {
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-        {
-            base.ModifyTooltips(item, tooltips);
+namespace GuardianClass.Content.Systems;
 
-            if(item.DamageType == ModContent.GetInstance<GuardianDamage>())
-            {
-                TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
-                if (tt != null)
-                {
-                    string[] splitText = tt.Text.Split(' ');
-                    string damageValue = splitText.First();
-                    string damageWord = splitText.Last();
-                    tt.Text = damageValue + " guardian " + "damage";
-                }
+internal class GuardianSystem : GlobalItem
+{
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+        if (item.DamageType == ModContent.GetInstance<GuardianDamage>()) {
+            var tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+            if (tt != null) {
+                var splitText = tt.Text.Split(' ');
+                var damageValue = splitText.First();
+                var damageWord = splitText.Last();
+                tt.Text = damageValue + " guardian " + "damage";
             }
         }
     }
