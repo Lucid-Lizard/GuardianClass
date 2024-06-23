@@ -3,6 +3,7 @@ using System.Linq;
 using GuardianClass.Content.DamageClasses;
 using Terraria;
 using Terraria.ModLoader;
+using GuardianClass;
 
 namespace GuardianClass.Common.Items;
 
@@ -23,5 +24,8 @@ public sealed class ItemGuardianTooltip : GlobalItem
         var damage = split.First();
         
         tooltip.Text = $"{damage} guardian damage";
+
+        var titletip = new TooltipLine(this.Mod,"ClassTag","-Guardian Class-");
+        tooltips.Insert(1, titletip);
     }
 }

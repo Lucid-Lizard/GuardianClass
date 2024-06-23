@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="..\tModLoader.targets"/>
+    <Import Project="..\tModLoader.targets" />
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -10,11 +10,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*"/>
+        <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Assets\" />
+      <Folder Include="NewFolder\" />
     </ItemGroup>
 
 </Project>
