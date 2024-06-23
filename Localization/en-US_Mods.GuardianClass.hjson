@@ -1,5 +1,3 @@
-# This file will automatically update with entries for new content after a build and reload.
-
 Items: {
 	WoodenShield: {
 		DisplayName: Wooden Shield
@@ -33,12 +31,12 @@ Items: {
 }
 
 Projectiles: {
-	WoodenShieldProjectile.DisplayName: Wooden Shield Projectile
-	TestShieldProjectile.DisplayName: Test Shield Projectile
-	MeatshieldProjectile.DisplayName: Meatshield Projectile
-	TheMawProjectile.DisplayName: The Maw Projectile
-	TheMawSpitProjectile.DisplayName: The Maw Spit Projectile
-	ApisAegisProjectile.DisplayName: Apis Aegis Projectile
+	WoodenShieldProjectile.DisplayName: Wooden Shield
+	TestShieldProjectile.DisplayName: Test Shield
+	MeatshieldProjectile.DisplayName: Meatshield
+	TheMawProjectile.DisplayName: The Maw
+	TheMawSpitProjectile.DisplayName: The Maw Spit
+	ApisAegisProjectile.DisplayName: Apis Aegis
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

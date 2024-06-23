@@ -1,29 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<!-- Import tModLoader mod properties -->
-	<Import Project="..\tModLoader.targets" />
+    <Import Project="..\tModLoader.targets"/>
 
-	<!-- General -->
-	<PropertyGroup>
-		
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>GuardianClass</RootNamespace>
+    </PropertyGroup>
 
-	<!-- References -->
-	<ItemGroup>
-	  <None Remove="Content\Items\ApisAegis.png" />
-	  <None Remove="Content\Items\ApisAegisProjectile.png" />
-	  <None Remove="Content\Items\Meatshield.png" />
-	  <None Remove="Content\Items\MeatshieldProjectile.png" />
-	  <None Remove="Content\Items\TheMaw.png" />
-	  <None Remove="Content\Items\TheMawProjectile.png" />
-	  <None Remove="Content\Items\TheMawSpitProjectile.png" />
-	  <None Remove="Content\Items\WoodenShield.png" />
-	  <None Remove="Content\Items\WoodenShieldProjectile.png" />
-	  <None Remove="Textures\UI\ShieldHeart.png" />
-	  <None Remove="Textures\UI\ShieldToken.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="UI\" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
+    </ItemGroup>
 
 </Project>
