@@ -28,6 +28,11 @@ Items: {
 		DisplayName: Apis Aegis
 		Tooltip: ""
 	}
+
+	Heater: {
+		Tooltip: ""
+		DisplayName: Heater
+	}
 }
 
 Projectiles: {
@@ -37,6 +42,7 @@ Projectiles: {
 	TheMawProjectile.DisplayName: The Maw
 	TheMawSpitProjectile.DisplayName: The Maw Spit
 	ApisAegisProjectile.DisplayName: Apis Aegis
+	HeaterProjectile.DisplayName: Heater Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage
