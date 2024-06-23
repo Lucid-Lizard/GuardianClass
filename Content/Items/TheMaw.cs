@@ -16,16 +16,16 @@ public class TheMaw : GuardianShield
         ShieldProjectile = ModContent.ProjectileType<TheMawProjectile>();
         MaxDurability = 125;
 
-        spawnTime = 15;
-        thrustTime = 25;
+        SpawnTime = 15;
+        ThrustTime = 25;
 
         DurabilityStages = 1;
 
 
         Resistance = 0.25f;
 
-        attackDistance = 25;
-        idleDistance = 25;
+        AttackDistance = 25;
+        IdleDistance = 25;
 
         Item.damage = 37;
     }
@@ -54,7 +54,7 @@ public class TheMawProjectile : GuardianShieldProjectile
 
 
     public override void BlockNPCEffect(NPC npc) {
-        //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+        //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
     }
 
     public override void StrikeNPCEffect(NPC npc) {
@@ -69,30 +69,30 @@ public class TheMawProjectile : GuardianShieldProjectile
             canStick = false;
             NPCPreviousDamage = npc.damage;
             MaxEat = npc.height;
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_MeatshieldImpale"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_MeatshieldImpale"));
         }
         else {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
         }
         //npc.AddBuff(BuffID.Confused, 120);
     }
 
     public override void BlockProjectileEffect(Projectile proj) {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_ArrowWoodImpact"));
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_ArrowWoodImpact"));
         proj.velocity *= -1;
         proj.friendly = true;
         proj.hostile = false;
     }
 
     public override void StageChangeEffect() {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
         for (var i = 0; i < 3; i++) {
             Dust.NewDust(Projectile.Center, 4, 4, DustID.WoodFurniture);
         }
     }
 
     public override void ShieldBreakEffect() {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
         for (var i = 0; i < 7; i++) {
             Dust.NewDust(Projectile.Center, 4, 4, DustID.WoodFurniture);
         }
@@ -128,7 +128,7 @@ public class TheMawProjectile : GuardianShieldProjectile
 
                 // HERE
                 if (EatTimer % 20 == 0) {
-                    SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_TheMawBite"), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_TheMawBite"), Projectile.Center);
                 }
             }
             else {

@@ -16,16 +16,16 @@ public class Meatshield : GuardianShield
         ShieldProjectile = ModContent.ProjectileType<MeatshieldProjectile>();
         MaxDurability = 125;
 
-        spawnTime = 15;
-        thrustTime = 25;
+        SpawnTime = 15;
+        ThrustTime = 25;
 
         DurabilityStages = 1;
 
 
         Resistance = 0.25f;
 
-        attackDistance = 25;
-        idleDistance = 25;
+        AttackDistance = 25;
+        IdleDistance = 25;
 
         Item.damage = 36;
     }
@@ -59,7 +59,7 @@ public class MeatshieldProjectile : GuardianShieldProjectile
                 Main.npc[StickedNPC].StrikeInstantKill();
             }
         }
-        //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+        //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
     }
 
     public override void StrikeNPCEffect(NPC npc) {
@@ -73,30 +73,30 @@ public class MeatshieldProjectile : GuardianShieldProjectile
             Durability = npc.life;
             canStick = false;
             NPCPreviousDamage = npc.damage;
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_MeatshieldImpale"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_MeatshieldImpale"));
         }
         else {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
         }
         //npc.AddBuff(BuffID.Confused, 120);
     }
 
     public override void BlockProjectileEffect(Projectile proj) {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_ArrowWoodImpact"));
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_ArrowWoodImpact"));
         proj.velocity *= -1;
         proj.friendly = true;
         proj.hostile = false;
     }
 
     public override void StageChangeEffect() {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
         for (var i = 0; i < 3; i++) {
             Dust.NewDust(Projectile.Center, 4, 4, DustID.WoodFurniture);
         }
     }
 
     public override void ShieldBreakEffect() {
-        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
+        SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
         for (var i = 0; i < 7; i++) {
             Dust.NewDust(Projectile.Center, 4, 4, DustID.WoodFurniture);
         }
@@ -139,7 +139,7 @@ public class MeatshieldProjectile : GuardianShieldProjectile
 
 
             if (Durability <= 0) {
-                shieldItem = g.currentShield;
+                shieldItem = g.CurrentShield;
                 Durability = shieldItem.MaxDurability;
 
 
@@ -173,7 +173,7 @@ public class MeatshieldProjectile : GuardianShieldProjectile
             pos = playerCenter;
 
             var angleVec = Vector2.Normalize(Main.MouseWorld - playerCenter);
-            vel = (shieldItem.idleDistance + AttackOffset + 10) * angleVec;
+            vel = (shieldItem.IdleDistance + AttackOffset + 10) * angleVec;
             var rot = Projectile.velocity.ToRotation();
 
             pos += vel;

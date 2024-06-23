@@ -6,29 +6,15 @@ namespace GuardianClass.ModPlayers;
 
 public class GuardianModPlayer : ModPlayer
 {
-    public GuardianShield currentShield;
+    public GuardianShield CurrentShield;
+    
     public int LastDurability = -1;
     public int LastShieldType;
 
     public override void PreUpdate() {
         if (GuardianSystem.GuardianShieldItems.Contains(Player.HeldItem.type)) {
-            currentShield = (GuardianShield)Player.HeldItem.ModItem;
+            CurrentShield = (GuardianShield)Player.HeldItem.ModItem;
         }
-
-        if (currentShield != null) {
-            //Main.NewText(currentShield.Name);
-        }
-    }
-
-
-    public override void PostUpdate() {
-        /*if (GuardianSystem.GuardianShieldItems.Contains(Player.HeldItem.type))
-        {
-            if (currentShield != null && currentShield.ShieldProjectile != LastShieldType)
-            {
-                LastShieldType = currentShield.ShieldProjectile;
-            }
-        }*/
     }
 }
 

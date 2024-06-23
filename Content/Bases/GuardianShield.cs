@@ -9,18 +9,17 @@ namespace GuardianClass.Content.Bases;
 
 public abstract class GuardianShield : ModItem
 {
-    public float attackDistance;
+    public float AttackDistance;
 
     public int DurabilityStages = 3;
-    public float idleDistance = 25;
+    public float IdleDistance = 25;
 
     public int MaxDurability = 100;
     public float Resistance = 0.25f;
     public int ShieldProjectile;
 
-    public int spawnTime;
-    public int thrustTime;
-
+    public int SpawnTime;
+    public int ThrustTime;
 
     public virtual void SetGuardianDefaults() { }
 
@@ -29,23 +28,33 @@ public abstract class GuardianShield : ModItem
     }
 
     public override void SetDefaults() {
-        Item.damage = 24;
         Item.DamageType = ModContent.GetInstance<GuardianDamage>();
+        
+        // Should stats really be fixed to all shields?
+        Item.damage = 24;
+        Item.knockBack = 6f;
+
+        Item.noUseGraphic = true;
+        Item.autoReuse = false;
+        Item.channel = true;
+        
+        // This should also match the dimensions of each shield individually.
         Item.width = 40;
         Item.height = 40;
+        
+        // I'm not quite sure why the absurd values are required. Surely there's an alternative method.
         Item.useTime = 120;
         Item.useAnimation = 1;
         Item.useStyle = ItemUseStyleID.Shoot;
-        Item.noUseGraphic = true;
-        Item.knockBack = 6;
+        Item.UseSound = SoundID.Item1;
+        
         Item.value = Item.buyPrice(silver: 1);
         Item.rare = ItemRarityID.Blue;
-        Item.UseSound = SoundID.Item1;
-        Item.autoReuse = false;
-        Item.channel = true;
+
         SetGuardianDefaults();
     }
 
+    // TODO: This should probably be handled by ModItem::Shoot().
     public override bool? UseItem(Player player) {
         if (player.ownedProjectileCounts[ShieldProjectile] == 0) {
             Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ShieldProjectile, Item.damage, 0);

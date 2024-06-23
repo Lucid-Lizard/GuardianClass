@@ -85,7 +85,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         var player = Main.player[Projectile.owner];
         var g = player.GetModPlayer<GuardianModPlayer>();
 
-        shieldItem = g.currentShield;
+        shieldItem = g.CurrentShield;
         if (Override) {
             OverrideItemStats();
         }
@@ -141,9 +141,9 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
         switch (state) {
             case ShieldState.Spawn: {
-                if (putOutAnimTimer++ < shieldItem.spawnTime) {
+                if (putOutAnimTimer++ < shieldItem.SpawnTime) {
                     Scale = MathHelper.Lerp(0f, 1f, CoolMath.EaseInOutBack(putOutAnimTimer / 15f));
-                    AttackOffset = MathHelper.Lerp(-shieldItem.idleDistance, 0f, CoolMath.EaseInOutBack(putOutAnimTimer / 15f));
+                    AttackOffset = MathHelper.Lerp(-shieldItem.IdleDistance, 0f, CoolMath.EaseInOutBack(putOutAnimTimer / 15f));
                 }
                 else {
                     state = ShieldState.Idle;
@@ -158,17 +158,17 @@ public abstract class GuardianShieldProjectile : ModProjectile
                     AttackTimer = 0;
                     state = ShieldState.ThrustStart;
                     CanAttack = false;
-                    SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield3"), Projectile.Center);
+                    SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield3"), Projectile.Center);
                 }
 
                 break;
             }
             case ShieldState.ThrustStart: {
-                if (AttackTimer++ < shieldItem.thrustTime) {
+                if (AttackTimer++ < shieldItem.ThrustTime) {
                     AttackOffset = MathHelper.Lerp(
                         0f,
-                        shieldItem.attackDistance,
-                        CoolMath.EaseInOutBack(AttackTimer / (float)(shieldItem.thrustTime - 1))
+                        shieldItem.AttackDistance,
+                        CoolMath.EaseInOutBack(AttackTimer / (float)(shieldItem.ThrustTime - 1))
                     );
                 }
                 else {
@@ -179,11 +179,11 @@ public abstract class GuardianShieldProjectile : ModProjectile
                 break;
             }
             case ShieldState.ThrustEnd: {
-                if (AttackTimer++ < shieldItem.thrustTime) {
+                if (AttackTimer++ < shieldItem.ThrustTime) {
                     AttackOffset = MathHelper.Lerp(
-                        shieldItem.attackDistance,
+                        shieldItem.AttackDistance,
                         0f,
-                        CoolMath.EaseOutBack(AttackTimer / (float)(shieldItem.thrustTime - 1))
+                        CoolMath.EaseOutBack(AttackTimer / (float)(shieldItem.ThrustTime - 1))
                     );
                 }
                 else {
@@ -197,7 +197,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
             case ShieldState.Despawn: {
                 if (putAwayAnimTimer++ < 16) {
                     Scale = MathHelper.Lerp(1f, 0f, CoolMath.EaseInOutBack(putAwayAnimTimer / 15f));
-                    AttackOffset = MathHelper.Lerp(0f, -shieldItem.idleDistance, CoolMath.EaseInOutBack(putAwayAnimTimer / 15f));
+                    AttackOffset = MathHelper.Lerp(0f, -shieldItem.IdleDistance, CoolMath.EaseInOutBack(putAwayAnimTimer / 15f));
                 }
                 else {
                     putOut = false;
@@ -219,7 +219,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         Projectile.position = playerCenter;
 
         var angleVec = Vector2.Normalize(Main.MouseWorld - playerCenter);
-        Projectile.velocity = (shieldItem.idleDistance + AttackOffset) * angleVec;
+        Projectile.velocity = (shieldItem.IdleDistance + AttackOffset) * angleVec;
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
         var Projlist = CheckForIntersectionsProjectiles(Projectile);
@@ -261,7 +261,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
         if (Projlist.Count + NPClist.Count > 0 && ChangedStage) {
             StageChangeEffect();
-            //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
+            //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
         }
 
         g.LastDurability = Durability;
@@ -281,7 +281,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         var position = playerCenter;
 
         var angleVec = Vector2.Normalize(Main.MouseWorld - playerCenter);
-        var velocity = (shieldItem.idleDistance + AttackOffset + dist) * angleVec;
+        var velocity = (shieldItem.IdleDistance + AttackOffset + dist) * angleVec;
         var rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
         return new Vector3(position.X + velocity.X, position.Y + velocity.Y, rotation);
@@ -318,7 +318,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
             case ShieldState.Break: {
                 ShieldBreakEffect();
-                //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
+                //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
                 g.LastDurability = -1;
                 break;
             }
