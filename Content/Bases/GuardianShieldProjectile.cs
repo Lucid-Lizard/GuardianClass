@@ -5,9 +5,11 @@ using GuardianClass.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ReLogic.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -456,7 +458,14 @@ public abstract class GuardianShieldProjectile : ModProjectile
         }
 
         DrawExtraOverShield();
+
+       
+        //Main.spriteBatch.Begin();
+        Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Durability + "/" + shieldItem.MaxDurability, Projectile.Center + new Vector2(-Projectile.width, 35) - Main.screenPosition, Color.White);
+       // Main.spriteBatch.End();
     }
+
+    
 
     public override void DrawBehind(
         int index,
