@@ -1,4 +1,5 @@
 ﻿using GuardianClass.Content.Bases;
+using GuardianClass.ModPlayers;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -80,6 +81,15 @@ namespace GuardianClass.Content.Items
 
             proj.Kill();
             
+            foreach(var player in Main.player)
+            {
+                if (!player.TryGetModPlayer(out GuardianModPlayer modPlayer))
+                {
+                    return;
+                }
+
+                modPlayer.AddWard(2);
+            }
         }
 
         public override void StageChangeEffect()
