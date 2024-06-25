@@ -129,6 +129,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
     }
 
     public override void AI() {
+        Projectile.netImportant = true;
         currentStage = CalculateDurabilityStage(shieldItem.DurabilityStages, Durability, shieldItem.MaxDurability);
 
         ChangedStage = StageChange();

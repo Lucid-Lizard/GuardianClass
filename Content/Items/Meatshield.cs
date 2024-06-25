@@ -2,8 +2,10 @@
 using GuardianClass.ModPlayers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Security.Policy;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,7 +39,7 @@ public class MeatshieldProjectile : GuardianShieldProjectile
     public int NPCPreviousDamage;
     public int StickedNPC = -1;
 
-    public Texture2D text = TextureAssets.Item[1].Value;
+    public Texture2D text;
 
     public override void SetDefaults() {
         TextureName = "MeatshieldProjectile";
@@ -45,8 +47,10 @@ public class MeatshieldProjectile : GuardianShieldProjectile
 
         Projectile.width = 40;
         Projectile.height = 38;
+        
     }
 
+    
 
     public override void BlockNPCEffect(NPC npc) {
         if (StickedNPC >= 0) {
@@ -102,7 +106,9 @@ public class MeatshieldProjectile : GuardianShieldProjectile
         }
 
         if (StickedNPC >= 0) {
+            Main.npc[StickedNPC].netUpdate = true;
             Main.npc[StickedNPC].StrikeInstantKill();
+
         }
     }
 
@@ -114,6 +120,7 @@ public class MeatshieldProjectile : GuardianShieldProjectile
             Main.npc[StickedNPC].velocity = vel;
             Main.npc[StickedNPC].damage = NPCPreviousDamage;
             Main.npc[StickedNPC].hide = false;
+            Main.npc[StickedNPC].netUpdate = true;
             StickedNPC = -1;
         }
     }
@@ -124,7 +131,9 @@ public class MeatshieldProjectile : GuardianShieldProjectile
         if (StickedNPC >= 0) {
             //Main.NewText(StickedNPC);
             Override = true;
+
             var npc = Main.npc[StickedNPC];
+            npc.netUpdate = true;
             npc.Center = Projectile.Center + Projectile.velocity;
 
             npc.hide = true;
@@ -154,6 +163,8 @@ public class MeatshieldProjectile : GuardianShieldProjectile
         base.PostDraw(lightColor);
         // Main.NewText(Override);
         if (StickedNPC >= 0) {
+
+            
             var shouldflip = Projectile.velocity.X < 0;
 
             var npc = Main.npc[StickedNPC];
@@ -161,8 +172,10 @@ public class MeatshieldProjectile : GuardianShieldProjectile
             var height = npc.height;
             var rect = npc.frame;
             Main.NewText(width + " " + height + " " + text);
-            text = TextureAssets.Npc[npc.type].Value;
-
+            if (!Main.dedServ)
+            {
+                text = TextureAssets.Npc[npc.type].Value;
+            }
             Vector2 pos;
             Vector2 vel;
 

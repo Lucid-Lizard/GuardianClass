@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Chat;
+using Terraria.GameContent.UI.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -37,6 +39,9 @@ namespace GuardianClass.Content.Items
             base.SetDefaults();
             Item.damage = 53;
         }
+
+
+        
     }
 
     public class HeaterProjectile : GuardianShieldProjectile
@@ -79,17 +84,16 @@ namespace GuardianClass.Content.Items
                 Main.projectile[pro].friendly = true;
                 Main.projectile[pro].hostile = false;
 
+            proj.netImportant = true;
             proj.Kill();
             
-            foreach(var player in Main.player)
-            {
-                if (!player.TryGetModPlayer(out GuardianModPlayer modPlayer))
-                {
-                    return;
-                }
 
-                modPlayer.AddWard(2);
+            for(int i = 0; i < Main.maxPlayers; i++)
+            {
+                Main.player[i].GetModPlayer<GuardianModPlayer>().AddWard(2);
             }
+
+          
         }
 
         public override void StageChangeEffect()

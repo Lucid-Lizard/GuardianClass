@@ -42,7 +42,7 @@ public class TheMawProjectile : GuardianShieldProjectile
     public int StickedNPC = -1;
 
 
-    public Texture2D text = TextureAssets.Item[1].Value;
+    public Texture2D text;
 
     public override void SetDefaults() {
         TextureName = "TheMawProjectile";

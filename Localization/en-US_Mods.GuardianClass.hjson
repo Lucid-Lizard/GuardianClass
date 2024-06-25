@@ -30,8 +30,18 @@ Items: {
 	}
 
 	Heater: {
-		Tooltip: ""
+		Tooltip: Yo
 		DisplayName: Heater
+	}
+
+	ShieldHeart: {
+		Tooltip: ""
+		DisplayName: Shield Heart
+	}
+
+	SkeletonWarbanner: {
+		DisplayName: Skeleton Warbanner
+		Tooltip: ""
 	}
 }
 
@@ -43,6 +53,7 @@ Projectiles: {
 	TheMawSpitProjectile.DisplayName: The Maw Spit
 	ApisAegisProjectile.DisplayName: Apis Aegis
 	HeaterProjectile.DisplayName: Heater Projectile
+	SkeletonWarbannerMinion.DisplayName: Skeleton Warbanner Minion
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GuardianClass.Content.Bases;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace GuardianClass.ModPlayers;
@@ -18,6 +19,7 @@ public class GuardianModPlayer : ModPlayer
     private bool Countdown = false;
     public void AddWard(int num)
     {
+        Main.NewText(Player.name);
         Wards += num;
         WardExpireTimer = 480;
         IndividualExprireTimer = 60;

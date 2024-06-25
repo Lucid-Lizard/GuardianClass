@@ -4,6 +4,7 @@ using GuardianClass.Content.DamageClasses;
 using Terraria;
 using Terraria.ModLoader;
 using GuardianClass;
+using GuardianClass.Content.Items;
 
 namespace GuardianClass.Common.Items;
 
@@ -14,6 +15,8 @@ public sealed class ItemGuardianTooltip : GlobalItem
     }
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
+
+        
         var tooltip = tooltips.FirstOrDefault(line => line.Name == "Damage" && line.Mod == "Terraria");
         
         if (tooltip == null) {
@@ -24,8 +27,10 @@ public sealed class ItemGuardianTooltip : GlobalItem
         var damage = split.First();
         
         tooltip.Text = $"{damage} guardian damage";
-
-        var titletip = new TooltipLine(this.Mod,"ClassTag","-Guardian Class-");
+        //[i:{ModContent.ItemType<ShieldHeart>()}]
+        var titletip = new TooltipLine(this.Mod,"ClassTag", $"-Guardian Class-");
         tooltips.Insert(1, titletip);
+
+        
     }
 }

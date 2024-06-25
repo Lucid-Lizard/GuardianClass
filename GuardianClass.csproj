@@ -10,6 +10,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Content\Items\Warbanners\SkeletonWarbanner.png" />
+      <None Remove="Content\Items\Warbanners\SkeletonWarbannerMinion.png" />
+      <None Remove="Content\ShieldHeart.png" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
     </ItemGroup>
 
