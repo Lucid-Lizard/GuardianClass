@@ -43,6 +43,26 @@ Items: {
 		DisplayName: Skeleton Warbanner
 		Tooltip: ""
 	}
+
+	IronShield: {
+		DisplayName: Iron Shield
+		Tooltip: ""
+	}
+
+	CopperShield: {
+		DisplayName: Copper Shield
+		Tooltip: ""
+	}
+
+	LeadShield: {
+		DisplayName: Lead Shield
+		Tooltip: ""
+	}
+
+	TinShield: {
+		DisplayName: Tin Shield
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -54,6 +74,10 @@ Projectiles: {
 	ApisAegisProjectile.DisplayName: Apis Aegis
 	HeaterProjectile.DisplayName: Heater Projectile
 	SkeletonWarbannerMinion.DisplayName: Skeleton Warbanner Minion
+	IronShieldProjectile.DisplayName: Iron Shield Projectile
+	CopperShieldProjectile.DisplayName: Copper Shield Projectile
+	LeadShieldProjectile.DisplayName: Lead Shield Projectile
+	TinShieldProjectile.DisplayName: Tin Shield Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

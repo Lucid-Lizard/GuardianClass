@@ -10,9 +10,27 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Textures\Minions\MinionHealthBar.png" />
+      <None Remove="Assets\Textures\Minions\MinionHealthBar2.png" />
+      <None Remove="Assets\Textures\UI\DurabiltyBar.png" />
+      <None Remove="Assets\Textures\UI\DurabiltyBarFull.png" />
+      <None Remove="Content\Items\CopperShield.png" />
+      <None Remove="Content\Items\CopperShieldProjectile.png" />
+      <None Remove="Content\Items\IronShield.png" />
+      <None Remove="Content\Items\IronShieldProjectile.png" />
+      <None Remove="Content\Items\LeadShield.png" />
+      <None Remove="Content\Items\LeadShieldProjectile.png" />
+      <None Remove="Content\Items\TheMaw.png" />
+      <None Remove="Content\Items\TheMawProjectile.png" />
+      <None Remove="Content\Items\TinShield.png" />
+      <None Remove="Content\Items\TinShieldProjectile.png" />
       <None Remove="Content\Items\Warbanners\SkeletonWarbanner.png" />
       <None Remove="Content\Items\Warbanners\SkeletonWarbannerMinion.png" />
       <None Remove="Content\ShieldHeart.png" />
+      <None Remove="Content\Tiles\Trees\IronwoodSapling.png" />
+      <None Remove="Content\Tiles\Trees\IronwoodTree.png" />
+      <None Remove="Content\Tiles\Trees\IronwoodTree_Branches.png" />
+      <None Remove="Content\Tiles\Trees\IronwoodTree_Tops.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,7 +38,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\" />
       <Folder Include="NewFolder\" />
     </ItemGroup>
 

@@ -1,13 +1,11 @@
 ﻿using GuardianClass.Content.DamageClasses;
 using GuardianClass.ModPlayers;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -34,7 +32,7 @@ namespace GuardianClass.Content.Items.Warbanners
 
             P.Clear();
 
-            P.CreateTroops(Item.shoot, 25, 5);
+            P.CreateTroops(Item.shoot, 20, 4);
 
             
 
@@ -66,9 +64,10 @@ namespace GuardianClass.Content.Items.Warbanners
             Projectile.width = 26;
             Projectile.height = 36;
             Projectile.tileCollide = true; // Makes the minion go through tiles freely
-
+            Projectile.damage = 10;
             // These below are needed for a minion weapon
             Projectile.friendly = true; // Only controls if it deals damage to enemies on contact (more on that later)
+            Projectile.hostile = false; // Only controls if it deals damage to enemies on contact (more on that later)
             Projectile.minion = true; // Declares this as a minion (has many effects)
             Projectile.DamageType = ModContent.GetInstance<GuardianDamage>(); ; // Declares the damage type (needed for it to deal damage)
             Projectile.minionSlots = 0f; // Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
@@ -92,6 +91,20 @@ namespace GuardianClass.Content.Items.Warbanners
         public AIState state = AIState.Idle;
         int WanderTimer = 0;
         int WanderDirection = -1;
+
+        public override void PostAI()
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            var WBP = owner.GetModPlayer<WarbannerMinionPlayer>();
+
+            if (!WBP.GetMinionTroop(Projectile, out Troop troop))
+            {
+                return;
+            }
+            if (troop.Captain == Projectile)
+                WBP.Refocus(Projectile);
+        }
         public override void AI()
         {
             Player owner = Main.player[Projectile.owner];
@@ -142,57 +155,6 @@ namespace GuardianClass.Content.Items.Warbanners
                         }
                     }
 
-                    List<NPC> Temp1 = troop.Targets;
-
-                    foreach (NPC npc in Temp1)
-                    {
-                        if (Vector2.Distance(npc.Center, Projectile.Center) > 500f)
-                        {
-                            Temp1.Remove(npc);
-                        }
-                    }
-
-                    troop.Targets = Temp1;
-
-                    
-
-                    for(int i = 0; i < Main.npc.Length; i++) 
-                    {
-                        NPC npc = Main.npc[i];
-                        if (troop.Targets.Contains(npc))
-                        {
-                            return;
-                        }
-
-                        if (Vector2.Distance(npc.Center, Projectile.Center) < 500f)
-                        {
-                            troop.Targets.Add(npc);
-                        }
-                    }
-
-                    NPC nearest = null;
-
-                    foreach (NPC npc in troop.Targets)
-                    {
-                        if (nearest == null)
-                        {
-                            nearest = npc;
-                        }
-                        else
-                        {
-                            if (Vector2.Distance(nearest.Center, Projectile.Center) > Vector2.Distance(npc.Center, Projectile.Center))
-                            {
-                                nearest = npc;
-                            }
-                        }
-                    }
-
-                    troop.Focus = nearest;
-
-                    troop.Attacking = troop.Focus != null;
-
-                    
-
                 }
                 else
                 {
@@ -204,107 +166,121 @@ namespace GuardianClass.Content.Items.Warbanners
                         Vector2 direction = Projectile.Center - target;
                         Projectile.velocity.X = (Projectile.velocity.X * (60f - 1) + -direction.X) / 60f;
 
+                        if (!troop.Captain.active)
+                        {
 
+                        }
                     }
                 }
 
                 Projectile.velocity.Y += 0.8f;
                 Projectile.velocity.X *= 0.9f;
+
+                if (troop.Attacking)
+                {
+                    state = AIState.Attack;
+                }
             }
             else
             {
-                
-                if (troop.Captain == Projectile)
+                if (troop.Focus != null)
                 {
+                    if (troop.Captain == Projectile)
+                    {
 
-                    if (Vector2.Distance(troop.Focus.Center, Projectile.Center) < 175f && WanderTimer == 0)
-                    {
-                        Projectile.velocity.X += 0.5f * (troop.Focus.Center.X < Projectile.Center.X ? 1 : -1);
-                        Projectile.velocity.X = Math.Clamp(Projectile.velocity.X, -10, 10);
-                    } else
-                    {
-                        if (WanderTimer == 0 && Main.rand.Next(0, 100) < 2)
+                        if (Vector2.Distance(troop.Focus.Center, Projectile.Center) < 175f && WanderTimer == 0)
                         {
-                            WanderTimer = Main.rand.Next(120, 180);
-                            WanderDirection = Main.rand.Next(0, 10) < 5 ? -1 : 1;
+                            Projectile.velocity.X += 0.5f * (troop.Focus.Center.X < Projectile.Center.X ? 1 : -1);
+                            Projectile.velocity.X = Math.Clamp(Projectile.velocity.X, -10, 10);
                         }
-
-                        if (WanderTimer != 0)
+                        else
                         {
-                            WanderTimer--;
-                            Projectile.direction = WanderDirection;
-                            Projectile.velocity.X += 0.2f * WanderDirection;
-                            Projectile.velocity.X = Math.Clamp(Projectile.velocity.X, -5, 5);
+                            if (WanderTimer == 0 && Main.rand.Next(0, 100) < 2)
+                            {
+                                WanderTimer = Main.rand.Next(120, 180);
+                                WanderDirection = Main.rand.Next(0, 10) < 5 ? -1 : 1;
+                            }
+
+                            if (WanderTimer != 0)
+                            {
+                                WanderTimer--;
+                                Projectile.direction = WanderDirection;
+                                Projectile.velocity.X += 0.2f * WanderDirection;
+                                Projectile.velocity.X = Math.Clamp(Projectile.velocity.X, -5, 5);
+                            }
                         }
-                    }
-                } else
-                {
-                    Main.NewText(Projectile.ai[0]);
-                    if (Projectile.ai[0]++ >= 60)
-                    {
-                        Vector2 vel = Projectile.Center - troop.Focus.Center;
-                        vel.Normalize();
-                        vel *= -7;
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.position, vel, ProjectileID.WoodenArrowFriendly, 1, 1f, Projectile.owner);
-                        Projectile.ai[0] = 0;
-                    }
-
-                    if (WBP.GetTroopPos(Projectile, out int MinionPos))
-                    {
-                        //Projectile.position.X = troop.Captain.Center.X + (Projectile.width * MinionPos * -troop.Captain.direction) - (Projectile.width / 2);
-                        Vector2 target = Vector2.Zero;
-                        target.X = troop.Captain.Center.X + (Projectile.width * MinionPos * -troop.Captain.direction) - (Projectile.width / 2);
-                        Vector2 direction = Projectile.Center - target;
-                        Projectile.velocity.X = (Projectile.velocity.X * (60f - 1) + -direction.X) / 60f;
-
-
-                    }
-                }
-
-                Projectile.velocity.Y += 0.8f;
-                Projectile.velocity.X *= 0.9f;
-
-                if (!troop.Focus.active)
-                {
-                    
-                    if (troop.Targets.Count > 0)
-                    {
-
-
-                        
-
-                        troop.Attacking = false;
                     }
                     else
                     {
-                        foreach (NPC npc in troop.Targets)
+                        // Main.NewText(Projectile.ai[0]);
+                        if (Projectile.ai[0]++ >= 60)
                         {
-                            
-                            
-                           
-                                if (Vector2.Distance(troop.Focus.Center, Projectile.Center) > Vector2.Distance(npc.Center, Projectile.Center))
-                                {
-                                    troop.Focus = npc;
-                                }
-                            
+                            Vector2 vel = Projectile.Center - troop.Focus.Center;
+                            vel.Normalize();
+                            vel *= -7;
+                            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.position, vel.RotatedByRandom(MathHelper.Pi / 9), ProjectileID.WoodenArrowFriendly, 1, 1f, Projectile.owner);
+                            Projectile.ai[0] = 0;
+                        }
+
+                        if (WBP.GetTroopPos(Projectile, out int MinionPos))
+                        {
+                            //Projectile.position.X = troop.Captain.Center.X + (Projectile.width * MinionPos * -troop.Captain.direction) - (Projectile.width / 2);
+                            Vector2 target = Vector2.Zero;
+                            target.X = troop.Captain.Center.X + (Projectile.width * MinionPos * -troop.Captain.direction) - (Projectile.width / 2);
+                            Vector2 direction = Projectile.Center - target;
+                            Projectile.velocity.X = (Projectile.velocity.X * (60f - 1) + -direction.X) / 60f;
+
+
                         }
                     }
 
-                }
+                    Projectile.velocity.Y += 0.8f;
+                    Projectile.velocity.X *= 0.9f;
 
-                if (!troop.Attacking)
+
+
+                    if (!troop.Attacking)
+                    {
+                        state = AIState.Idle;
+                    }
+                } else
                 {
+                    troop.Attacking = false;
                     state = AIState.Idle;
                 }
             }
         }
 
-        
-            
-        
+        public override void OnKill(int timeLeft)
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            var WBP = owner.GetModPlayer<WarbannerMinionPlayer>();
 
 
-       
+
+           
+
+            if (!WBP.GetMinionTroop(Projectile, out Troop troop))
+            {
+                return;
+            }
+
+            if(troop.Captain == Projectile)
+            {
+                WBP.DestroyTroop(troop);
+            }
+
+            for (int i = 0; i < Main.rand.Next(4,7); i++)
+            {
+                Dust.NewDust(Projectile.position + CoolMath.PointInRect(Projectile.getRect()), 2, 2, DustID.Bone, Main.rand.NextVector2Square(-1, 1).X, Main.rand.NextVector2Square(-1, 1).Y);
+            }
+        }
+
+
+
+
+
 
         private bool CheckActive(Player owner)
         {
@@ -325,7 +301,39 @@ namespace GuardianClass.Content.Items.Warbanners
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            hit.Damage = 100;
+            //damageDone = 0;
             Health -= target.damage;
+            Main.NewText(Health);
+        }
+
+        public override void PostDraw(Microsoft.Xna.Framework.Color lightColor)
+        {
+            Texture2D Bar = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/Minions/MinionHealthBar");
+            Texture2D Color = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/Minions/MinionHealthBar2");
+            Main.EntitySpriteDraw(
+                Bar,
+                Projectile.Center + new Vector2(0, Projectile.height + 5) - Main.screenPosition,
+                Bar.Bounds,
+                Microsoft.Xna.Framework.Color.White,
+                0f,
+                new Vector2(Bar.Width / 2, Bar.Height / 2),
+                1f,
+                SpriteEffects.None
+
+                );
+
+            Main.EntitySpriteDraw(
+                Color,
+                Projectile.Center + new Vector2(0, Projectile.height + 5) - Main.screenPosition,
+                new Rectangle(0, 0, (int)MathHelper.Lerp(4, Color.Width - 4, (Health / 30f)), Color.Height),
+                Microsoft.Xna.Framework.Color.White,
+                0f,
+                new Vector2(Bar.Width / 2, Bar.Height / 2),
+                1f,
+                SpriteEffects.None
+
+                );
         }
     }
 }

@@ -31,6 +31,15 @@ public class Meatshield : GuardianShield
 
         Item.damage = 36;
     }
+
+    public override void AddRecipes()
+    {
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.CrimtaneBar, 12);
+        recipe.AddIngredient(ItemID.TissueSample, 10);
+        recipe.AddTile(TileID.Anvils);
+        recipe.Register();
+    }
 }
 
 public class MeatshieldProjectile : GuardianShieldProjectile

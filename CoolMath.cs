@@ -1,9 +1,17 @@
 ﻿using System;
+using System.Drawing;
+using System.Numerics;
+using Terraria;
 
 namespace GuardianClass;
 
 public class CoolMath
 {
+    public static Microsoft.Xna.Framework.Vector2 PointInRect(Microsoft.Xna.Framework.Rectangle rect)
+    {
+        return new Microsoft.Xna.Framework.Vector2(Main.rand.Next(0, rect.Width), Main.rand.Next(0, rect.Height));
+    }
+
     public static Func<float, float> InOutQuadBlend = t => {
         if (t <= 0.5f) {
             return 2.0f * t * t;

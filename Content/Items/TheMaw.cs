@@ -19,7 +19,7 @@ public class TheMaw : GuardianShield
         SpawnTime = 15;
         ThrustTime = 25;
 
-        DurabilityStages = 1;
+        DurabilityStages = 3;
 
 
         Resistance = 0.25f;
@@ -28,6 +28,15 @@ public class TheMaw : GuardianShield
         IdleDistance = 25;
 
         Item.damage = 37;
+    }
+
+    public override void AddRecipes()
+    {
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.DemoniteBar, 12);
+        recipe.AddIngredient(ItemID.ShadowScale, 12);
+        recipe.AddTile(TileID.Anvils);
+        recipe.Register();
     }
 }
 
@@ -205,7 +214,7 @@ public class TheMawProjectile : GuardianShieldProjectile
             Main.EntitySpriteDraw(
                 texture,
                 position - Main.screenPosition,
-                new Rectangle(0, 0 + (Projectile.height + 2) * 1, Projectile.width, Projectile.height),
+                new Rectangle(0, 0 + (Projectile.height + 2) * 3, Projectile.width, Projectile.height),
                 lightColor,
                 Projectile.rotation,
                 new Vector2(Projectile.width, Projectile.height) / 2f,

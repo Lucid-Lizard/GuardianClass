@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ModLoader;
 
@@ -54,7 +52,7 @@ namespace GuardianClass.ModPlayers
                 Troops[i].Units = new List<Projectile>();
                 for (int j = 0; j < Num / TroopSize; j++)
                 {
-                    int p = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, Vector2.Zero, Minion, 0, 0, Player.whoAmI);
+                    int p = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.position, Vector2.Zero, Minion, 1, 0, Player.whoAmI);
 
                     Troops[i].Units.Add(Main.projectile[p]); // Adjusted to use i as the index
                 }
@@ -87,6 +85,100 @@ namespace GuardianClass.ModPlayers
 
             MinionPos = -1;
             return false;
+        }
+
+        public bool Refocus(Projectile Minion)
+        {
+            if (GetMinionTroop(Minion, out Troop troop))
+            {
+                for (int i = 0; i < Main.npc.Length; i++)
+                {
+                    
+                    NPC npc = Main.npc[i];
+
+                    if(npc.friendly || npc.CountsAsACritter)
+                    {
+                        break;
+                    }
+
+                    if (troop.Targets.Contains(npc))
+                    {
+                        if (Vector2.Distance(npc.Center, Minion.Center) > 500f)
+                        {
+                            troop.Targets.Remove(npc);
+                        }
+
+                        break;
+                    }
+
+                    if (Vector2.Distance(npc.Center, Minion.Center) < 500f)
+                    {
+                        troop.Targets.Add(npc);
+                    }
+
+                    NPC nearest = null;
+
+                    foreach (NPC npc2 in troop.Targets)
+                    {
+                        if (nearest == null)
+                        {
+                            nearest = npc2;
+                        }
+                        else
+                        {
+                            if (Vector2.Distance(nearest.Center, Minion.Center) > Vector2.Distance(npc.Center, Minion.Center))
+                            {
+                                nearest = npc;
+                            }
+                        }
+                    }
+
+                    troop.Focus = nearest;
+
+                    troop.Attacking = troop.Focus != null;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        public void DestroyTroop(Troop troop)
+        {
+            foreach(Projectile p in troop.Units)
+            {
+                FindNewTroop(p);
+            }
+            Troops.Remove(troop);
+        }
+
+        public void FindNewTroop(Projectile Minion)
+        {
+            if(Troops.Count - 1 > 0) {
+                Troop t = Troops[0];
+                foreach (Troop troop in Troops)
+                {
+                    if (!troop.Captain.active)
+                    {
+                        return;
+                    }
+                    if (Vector2.Distance(Minion.Center, troop.Captain.Center) < Vector2.Distance(Minion.Center, t.Captain.Center))
+                    {
+                        t = troop;
+                    }
+                }
+
+                if (t != null)
+                {
+                    t.Units.Add(Minion);
+                }
+            } else
+            {
+                Minion.Kill();
+            }
+            
+
+            
         }
     }
 }

@@ -69,7 +69,22 @@ public class GuardianModPlayer : ModPlayer
 
 }
 
+public class ShieldData
+{
+    public int durability;
+    public int maxDurability;
+    public int FlashTim = 0;
+    public float Scale = 0;
+    public bool Flash = false;
+    public ShieldData(int durability, int maxDurability)
+    {
+        this.durability = durability;
+        this.maxDurability = maxDurability;
+    }
+}
+
 public class GuardianSystem : ModSystem
 {
     public static List<int> GuardianShieldItems = new();
+    public static Dictionary<Projectile, ShieldData> shieldData = new Dictionary<Projectile, ShieldData>();
 }

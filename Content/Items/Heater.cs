@@ -40,8 +40,15 @@ namespace GuardianClass.Content.Items
             Item.damage = 53;
         }
 
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.HellstoneBar, 18);
+            recipe.AddIngredient(ItemID.Obsidian, 8);
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
+        }
 
-        
     }
 
     public class HeaterProjectile : GuardianShieldProjectile

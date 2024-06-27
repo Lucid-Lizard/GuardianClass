@@ -21,6 +21,14 @@ public class WoodenShield : GuardianShield
         AttackDistance = 15;
         IdleDistance = 16;
     }
+
+    public override void AddRecipes()
+    {
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.Wood, 12);
+        recipe.AddTile(TileID.WorkBenches);
+        recipe.Register();
+    }
 }
 
 public class WoodenShieldProjectile : GuardianShieldProjectile

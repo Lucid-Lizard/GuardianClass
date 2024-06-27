@@ -26,6 +26,15 @@ public class ApisAegis : GuardianShield
         base.SetDefaults();
         Item.damage = 53;
     }
+
+    public override void AddRecipes()
+    {
+        Recipe recipe = CreateRecipe();
+        recipe.AddIngredient(ItemID.BeeWax, 12);
+        recipe.AddIngredient(ItemID.BottledHoney, 8);
+        recipe.AddTile(TileID.Anvils);
+        recipe.Register();
+    }
 }
 
 public class ApisAegisProjectile : GuardianShieldProjectile

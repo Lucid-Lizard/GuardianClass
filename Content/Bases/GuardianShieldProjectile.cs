@@ -99,6 +99,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
         else {
             Durability = shieldItem.MaxDurability;
         }
+
+        GuardianSystem.shieldData.Add(Projectile, new ShieldData(1,1));
     }
 
     public override bool PreAI() {
@@ -129,6 +131,15 @@ public abstract class GuardianShieldProjectile : ModProjectile
     }
 
     public override void AI() {
+
+        GuardianSystem.shieldData[Projectile].durability = Durability;
+        GuardianSystem.shieldData[Projectile].maxDurability = shieldItem.MaxDurability;
+        GuardianSystem.shieldData[Projectile].Scale = Scale;
+
+        if (GuardianSystem.shieldData[Projectile].Flash)
+        {
+            GuardianSystem.shieldData[Projectile].FlashTim++;
+        }
         Projectile.netImportant = true;
         currentStage = CalculateDurabilityStage(shieldItem.DurabilityStages, Durability, shieldItem.MaxDurability);
 
@@ -326,6 +337,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
                 break;
             }
         }
+
+        GuardianSystem.shieldData.Remove(Projectile);
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) {
@@ -433,7 +446,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
         return false;
     }
-
+    private float FlashTim = 0;
     public override void PostDraw(Color lightColor) {
         if (BlockFXFlag) {
             var texture = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Content/Items/" + TextureName); // Get the projectile's texture
@@ -450,7 +463,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
                 texture,
                 position - Main.screenPosition,
                 new Rectangle(0, 0 + (Projectile.height + 2) * currentStage, Projectile.width, Projectile.height),
-                Color.White * MathHelper.Lerp(1f, 0f * 1.5f, 1 - CoolMath.EaseInCirc(BlockFXTimer / (float)45)),
+                Microsoft.Xna.Framework.Color.White * MathHelper.Lerp(1f, 0f * 1.5f, 1 - CoolMath.EaseInCirc(BlockFXTimer / (float)45)),
                 Projectile.rotation,
                 new Vector2(Projectile.width, Projectile.height) / 2f,
                 MathHelper.Lerp(Scale, Scale * 1.75f, 1 - CoolMath.EaseInCirc(BlockFXTimer / (float)45)),
@@ -460,10 +473,10 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
         DrawExtraOverShield();
 
-       
+
         //Main.spriteBatch.Begin();
-        Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Durability + "/" + shieldItem.MaxDurability, Projectile.Center + new Vector2(-Projectile.width, 35) - Main.screenPosition, Color.White);
-       // Main.spriteBatch.End();
+       
+        // Main.spriteBatch.End();
     }
 
     
@@ -478,4 +491,6 @@ public abstract class GuardianShieldProjectile : ModProjectile
     ) {
         overPlayers.Add(index);
     }
+
+    
 }
