@@ -63,6 +63,11 @@ Items: {
 		DisplayName: Tin Shield
 		Tooltip: ""
 	}
+
+	GoldShield: {
+		DisplayName: Gold Shield
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -78,6 +83,7 @@ Projectiles: {
 	CopperShieldProjectile.DisplayName: Copper Shield Projectile
 	LeadShieldProjectile.DisplayName: Lead Shield Projectile
 	TinShieldProjectile.DisplayName: Tin Shield Projectile
+	GoldShieldProjectile.DisplayName: Gold Shield Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage
