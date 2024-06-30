@@ -21,6 +21,8 @@
       <None Remove="Content\Items\IronShieldProjectile.png" />
       <None Remove="Content\Items\LeadShield.png" />
       <None Remove="Content\Items\LeadShieldProjectile.png" />
+      <None Remove="Content\Items\RubyShield.png" />
+      <None Remove="Content\Items\RubyShieldProjectile.png" />
       <None Remove="Content\Items\TheMaw.png" />
       <None Remove="Content\Items\TheMawProjectile.png" />
       <None Remove="Content\Items\TinShield.png" />

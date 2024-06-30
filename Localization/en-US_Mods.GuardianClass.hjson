@@ -88,6 +88,11 @@ Items: {
 		DisplayName: Shield Polish
 		Tooltip: ""
 	}
+
+	RubyShield: {
+		DisplayName: Ruby Shield
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -107,6 +112,7 @@ Projectiles: {
 	PlatinumShieldProjectile.DisplayName: Platinum Shield Projectile
 	SilverShieldProjectile.DisplayName: Silver Shield Projectile
 	TungstenShieldProjectile.DisplayName: Tungsten Shield Projectile
+	RubyShieldProjectile.DisplayName: Ruby Shield Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage
