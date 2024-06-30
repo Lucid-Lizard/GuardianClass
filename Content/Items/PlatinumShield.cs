@@ -11,11 +11,11 @@ using Terraria.ModLoader;
 
 namespace GuardianClass.Content.Items
 {
-    public class GoldShield : GuardianShield
+    public class PlatinumShield : GuardianShield
     {
         public override void SetGuardianDefaults()
         {
-            ShieldProjectile = ModContent.ProjectileType<GoldShieldProjectile>();
+            ShieldProjectile = ModContent.ProjectileType<PlatinumShieldProjectile>();
             MaxDurability = 65;
 
             SpawnTime = 15;
@@ -32,17 +32,17 @@ namespace GuardianClass.Content.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.GoldBar, 12);
+            recipe.AddIngredient(ItemID.PlatinumBar, 12);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }
 
-    public class GoldShieldProjectile : GuardianShieldProjectile
+    public class PlatinumShieldProjectile : GuardianShieldProjectile
     {
         public override void SetDefaults()
         {
-            TextureName = "GoldShieldProjectile";
+            TextureName = "PlatinumShieldProjectile";
             Projectile.knockBack = 6;
 
             Projectile.width = 36;
@@ -73,7 +73,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
             for (var i = 0; i < 3; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.Gold);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.Platinum);
             }
         }
 
@@ -82,7 +82,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
             for (var i = 0; i < 7; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.Gold);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.Platinum);
             }
         }
     }

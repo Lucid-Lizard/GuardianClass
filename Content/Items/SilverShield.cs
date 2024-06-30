@@ -11,38 +11,38 @@ using Terraria.ModLoader;
 
 namespace GuardianClass.Content.Items
 {
-    public class GoldShield : GuardianShield
+    public class SilverShield : GuardianShield
     {
         public override void SetGuardianDefaults()
         {
-            ShieldProjectile = ModContent.ProjectileType<GoldShieldProjectile>();
-            MaxDurability = 65;
+            ShieldProjectile = ModContent.ProjectileType<SilverShieldProjectile>();
+            MaxDurability = 55;
 
             SpawnTime = 15;
             ThrustTime = 30;
 
             DurabilityStages = 3;
-            Resistance = 0.23f;
+            Resistance = 0.24f;
 
-            AttackDistance = 18;
-            IdleDistance = 18;
-            Item.damage = 34;
+            AttackDistance = 17;
+            IdleDistance = 17;
+            Item.damage = 32;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.GoldBar, 12);
+            recipe.AddIngredient(ItemID.SilverBar, 12);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }
 
-    public class GoldShieldProjectile : GuardianShieldProjectile
+    public class SilverShieldProjectile : GuardianShieldProjectile
     {
         public override void SetDefaults()
         {
-            TextureName = "GoldShieldProjectile";
+            TextureName = "SilverShieldProjectile";
             Projectile.knockBack = 6;
 
             Projectile.width = 36;
@@ -73,7 +73,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
             for (var i = 0; i < 3; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.Gold);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.Silver);
             }
         }
 
@@ -82,7 +82,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
             for (var i = 0; i < 7; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.Gold);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.Silver);
             }
         }
     }

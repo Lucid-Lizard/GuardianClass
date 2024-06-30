@@ -69,6 +69,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
     public override void SetStaticDefaults() {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12; // The length of old position to be recorded
         ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
+        GuardianSystem.ShieldProjectiles.Add(Type);
     }
 
     public override void SetDefaults() {
@@ -101,6 +102,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         }
 
         GuardianSystem.shieldData.Add(Projectile, new ShieldData(1,1));
+        
     }
 
     public override bool PreAI() {
@@ -240,6 +242,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
         foreach (var projectile in Projlist) {
             Durability -= projectile.damage;
             BlockProjectileEffect(projectile);
+
+
         }
 
         var NPClist = CheckForIntersectionsNPCs(Projectile);
@@ -286,6 +290,25 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
         ConstantEffect();
     }
+
+    /*private void BlockProjectileAccessoryFX(Projectile projectile)
+    {
+        var player = Main.player[Projectile.owner];
+        if(player.TryGetModPlayer<GuardianModPlayer>(out var g))
+        {
+            if (g.ShieldPolish)
+            {
+                projectile.velocity *= -1;
+                projectile.friendly = true;
+                projectile.hostile = false;
+            }
+        }
+
+
+        
+
+        
+    }*/
 
     public Vector3 CalculateRotPos(float dist) {
         var player = Main.player[Projectile.owner];
@@ -339,6 +362,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         }
 
         GuardianSystem.shieldData.Remove(Projectile);
+        
     }
 
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox) {

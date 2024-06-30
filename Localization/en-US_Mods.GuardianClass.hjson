@@ -68,6 +68,26 @@ Items: {
 		DisplayName: Gold Shield
 		Tooltip: ""
 	}
+
+	PlatinumShield: {
+		DisplayName: Platinum Shield
+		Tooltip: ""
+	}
+
+	SilverShield: {
+		DisplayName: Silver Shield
+		Tooltip: ""
+	}
+
+	TungstenShield: {
+		DisplayName: Tungsten Shield
+		Tooltip: ""
+	}
+
+	ShieldPolish: {
+		DisplayName: Shield Polish
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -84,6 +104,9 @@ Projectiles: {
 	LeadShieldProjectile.DisplayName: Lead Shield Projectile
 	TinShieldProjectile.DisplayName: Tin Shield Projectile
 	GoldShieldProjectile.DisplayName: Gold Shield Projectile
+	PlatinumShieldProjectile.DisplayName: Platinum Shield Projectile
+	SilverShieldProjectile.DisplayName: Silver Shield Projectile
+	TungstenShieldProjectile.DisplayName: Tungsten Shield Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

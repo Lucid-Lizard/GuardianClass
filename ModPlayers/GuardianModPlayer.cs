@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using GuardianClass.Content.Bases;
+using GuardianClass.Content.DamageClasses;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace GuardianClass.ModPlayers;
@@ -17,6 +20,8 @@ public class GuardianModPlayer : ModPlayer
     private int WardExpireTimer = 0;
     private int IndividualExprireTimer = 0;
     private bool Countdown = false;
+
+    public bool ShieldPolish = false;
     public void AddWard(int num)
     {
         Main.NewText(Player.name);
@@ -27,6 +32,8 @@ public class GuardianModPlayer : ModPlayer
     }
     public override void PreUpdate()
     {
+        ShieldPolish = false;
+
         if (GuardianSystem.GuardianShieldItems.Contains(Player.HeldItem.type))
         {
             CurrentShield = (GuardianShield)Player.HeldItem.ModItem;
@@ -59,12 +66,20 @@ public class GuardianModPlayer : ModPlayer
         }
     }
 
+    public override void UpdateEquips()
+    {
+        if (ShieldPolish)
+        {
+
+        }
+    }
     public override void PostUpdateEquips()
     {
         for(int i  = 0; i < Wards; i++)
         {
             Player.statDefense += 3;
         }
+        
     }
 
 }
@@ -87,4 +102,9 @@ public class GuardianSystem : ModSystem
 {
     public static List<int> GuardianShieldItems = new();
     public static Dictionary<Projectile, ShieldData> shieldData = new Dictionary<Projectile, ShieldData>();
+    public static List<int> ShieldProjectiles = new List<int>();
+
+   
 }
+
+ 

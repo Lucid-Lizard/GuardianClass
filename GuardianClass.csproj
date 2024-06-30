@@ -14,6 +14,7 @@
       <None Remove="Assets\Textures\Minions\MinionHealthBar2.png" />
       <None Remove="Assets\Textures\UI\DurabiltyBar.png" />
       <None Remove="Assets\Textures\UI\DurabiltyBarFull.png" />
+      <None Remove="Content\Items\Accessories\ShieldPolish.png" />
       <None Remove="Content\Items\CopperShield.png" />
       <None Remove="Content\Items\CopperShieldProjectile.png" />
       <None Remove="Content\Items\IronShield.png" />
