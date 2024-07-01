@@ -44,7 +44,7 @@ namespace GuardianClass.Content.Items
             Projectile.knockBack = 6;
 
             Projectile.width = 44;
-            Projectile.height = 36;
+            Projectile.height = 26;
         }
 
         public override void AI()

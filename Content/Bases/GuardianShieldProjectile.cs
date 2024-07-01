@@ -269,12 +269,28 @@ public abstract class GuardianShieldProjectile : ModProjectile
                 npc.immune[Projectile.owner] = 20;
             }
 
-            if (player.velocity.X != 0) {
-                npc.velocity.X = player.velocity.X * 1.2f;
+            Vector2 vel = Projectile.velocity;
+            Vector2 npcVel = npc.velocity;
+            vel.Normalize();
+            vel *= npcVel.Length() + player.velocity.Length() * 2f;
+            // Calculate the direction vector from the NPC to the projectile's center
+            Vector2 dir = Projectile.Center - npc.Center;
+
+            // Normalize the direction vector to get a unit vector
+            dir.Normalize();
+
+            // Calculate the dot product of the direction vector and the NPC's velocity
+            float dotProduct = Vector2.Dot(dir, npcVel);
+
+            // Define a threshold for considering the velocities aligned
+            float threshold = 0.9f; // Adjust this value based on your needs
+
+            if (dotProduct > threshold)
+            {
+                // Modify the NPC's velocity to match the projectile's velocity
+                npc.velocity = vel;
             }
-            else {
-                npc.velocity.X *= -1;
-            }
+
         }
 
         if (Projlist.Count + NPClist.Count > 0 && ChangedStage) {
