@@ -97,7 +97,8 @@ namespace GuardianClass.Content.Items
 
             for(int i = 0; i < Main.maxPlayers; i++)
             {
-                Main.player[i].GetModPlayer<GuardianModPlayer>().AddWard(2);
+                if (Main.player[i].TryGetModPlayer<GuardianModPlayer>(out var mod))
+                    mod.AddWard(2);
             }
 
           

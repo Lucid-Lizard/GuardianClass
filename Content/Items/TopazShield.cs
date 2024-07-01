@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework;
 
 namespace GuardianClass.Content.Items
 {
-    public class RubyShield : GuardianShield
+    public class TopazShield : GuardianShield
     {
         public override void SetGuardianDefaults()
         {
-            ShieldProjectile = ModContent.ProjectileType<RubyShieldProjectile>();
+            ShieldProjectile = ModContent.ProjectileType<TopazShieldProjectile>();
             MaxDurability = 85;
 
             SpawnTime = 15;
@@ -30,21 +30,21 @@ namespace GuardianClass.Content.Items
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Ruby, 17);
+            recipe.AddIngredient(ItemID.Topaz, 17);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }
     }
 
-    public class RubyShieldProjectile : GuardianShieldProjectile
+    public class TopazShieldProjectile : GuardianShieldProjectile
     {
         public override void SetDefaults()
         {
-            TextureName = "RubyShieldProjectile";
+            TextureName = "TopazShieldProjectile";
             Projectile.knockBack = 6;
 
             Projectile.width = 44;
-            Projectile.height = 24;
+            Projectile.height = 26;
         }
 
         public override void AI()
@@ -59,7 +59,7 @@ namespace GuardianClass.Content.Items
             Microsoft.Xna.Framework.Vector2 vel = Projectile.velocity;
             vel.Normalize();
             vel *= MathHelper.Max( (Projectile.velocity.Length() - 20f) / 5f, 0f);
-                int d = Dust.NewDust(Projectile.Center + Projectile.velocity, 2, 2, DustID.GemRuby, vel.X * -1, vel.Y * -1);
+                int d = Dust.NewDust(Projectile.Center + Projectile.velocity, 2, 2, DustID.GemTopaz, vel.X * -1, vel.Y * -1);
                 Main.dust[d].noGravity = true;
             
         }
@@ -85,7 +85,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
             for (var i = 0; i < 3; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.GemRuby);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.GemTopaz);
             }
         }
 
@@ -94,7 +94,7 @@ namespace GuardianClass.Content.Items
             SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
             for (var i = 0; i < 7; i++)
             {
-                Dust.NewDust(Projectile.Center, 4, 4, DustID.GemRuby);
+                Dust.NewDust(Projectile.Center, 4, 4, DustID.GemTopaz);
             }
         }
     }

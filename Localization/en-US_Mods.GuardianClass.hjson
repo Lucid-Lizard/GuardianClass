@@ -93,6 +93,26 @@ Items: {
 		DisplayName: Ruby Shield
 		Tooltip: ""
 	}
+
+	EmeraldShield: {
+		DisplayName: Emerald Shield
+		Tooltip: ""
+	}
+
+	AmethystShield: {
+		DisplayName: Amethyst Shield
+		Tooltip: ""
+	}
+
+	SapphireShield: {
+		DisplayName: Sapphire Shield
+		Tooltip: ""
+	}
+
+	TopazShield: {
+		DisplayName: Topaz Shield
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -113,6 +133,10 @@ Projectiles: {
 	SilverShieldProjectile.DisplayName: Silver Shield Projectile
 	TungstenShieldProjectile.DisplayName: Tungsten Shield Projectile
 	RubyShieldProjectile.DisplayName: Ruby Shield Projectile
+	EmeraldShieldProjectile.DisplayName: Emerald Shield Projectile
+	AmethystShieldProjectile.DisplayName: Amethyst Shield Projectile
+	SapphireShieldProjectile.DisplayName: Sapphire Shield Projectile
+	TopazShieldProjectile.DisplayName: Topaz Shield Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

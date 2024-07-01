@@ -18,8 +18,8 @@ public class DurabilityBar : ModSystem
     {
         orig.Invoke(self);
 
-        var Bar = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/Minions/DurabiltyBar");
-        var Color = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/Minions/DurabiltyBarFull");
+        var Bar = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/UI/DurabilityBar");
+        var Color = (Texture2D)ModContent.Request<Texture2D>("GuardianClass/Assets/Textures/UI/DurabilityBar2");
 
         foreach (KeyValuePair<Terraria.Projectile, ShieldData> kvp in GuardianSystem.shieldData)
         {
@@ -39,7 +39,7 @@ public class DurabilityBar : ModSystem
                 Microsoft.Xna.Framework.Color.White * Opacity,
                 0f,
                 new Vector2(Bar.Width / 2, Bar.Height / 2),
-                1f,
+                0.6f,
                 SpriteEffects.None
 
                 );
@@ -66,11 +66,11 @@ public class DurabilityBar : ModSystem
             Main.EntitySpriteDraw(
                 Color,
                 Projectile.Center + new Vector2(0, Projectile.height + 5) - Main.screenPosition,
-                new Rectangle(0, 0, (int)MathHelper.Lerp(6, Color.Width - 6, durabilityPercent), Color.Height),
+                new Rectangle(0, 0, (int)MathHelper.Lerp(14, Color.Width - 14, durabilityPercent), Color.Height),
                 flash * Opacity,
                 0f,
                 new Vector2(Bar.Width / 2, Bar.Height / 2),
-                1f,
+                0.6f,
                 SpriteEffects.None
 
                 );
