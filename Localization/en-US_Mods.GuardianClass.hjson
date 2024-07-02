@@ -30,7 +30,7 @@ Items: {
 	}
 
 	Heater: {
-		Tooltip: Yo
+		Tooltip: ""
 		DisplayName: Heater
 	}
 
@@ -113,6 +113,11 @@ Items: {
 		DisplayName: Topaz Shield
 		Tooltip: ""
 	}
+
+	Bludgeon: {
+		DisplayName: Bludgeon
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -137,6 +142,7 @@ Projectiles: {
 	AmethystShieldProjectile.DisplayName: Amethyst Shield Projectile
 	SapphireShieldProjectile.DisplayName: Sapphire Shield Projectile
 	TopazShieldProjectile.DisplayName: Topaz Shield Projectile
+	BludgeonProjectile.DisplayName: Bludgeon Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

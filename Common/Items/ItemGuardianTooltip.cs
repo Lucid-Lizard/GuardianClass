@@ -16,6 +16,7 @@ public sealed class ItemGuardianTooltip : GlobalItem
 
     public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
 
+        base.ModifyTooltips(item, tooltips);
         
         var tooltip = tooltips.FirstOrDefault(line => line.Name == "Damage" && line.Mod == "Terraria");
         
@@ -28,7 +29,7 @@ public sealed class ItemGuardianTooltip : GlobalItem
         
         tooltip.Text = $"{damage} guardian damage";
         //[i:{ModContent.ItemType<ShieldHeart>()}]
-        var titletip = new TooltipLine(this.Mod,"ClassTag", $"-Guardian Class-");
+        var titletip = new TooltipLine(this.Mod,"ClassTag", $"-Warden Class-");
         tooltips.Insert(1, titletip);
 
         

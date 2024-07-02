@@ -19,6 +19,8 @@
       <None Remove="Content\Items\Accessories\ShieldPolish.png" />
       <None Remove="Content\Items\AmethystShield.png" />
       <None Remove="Content\Items\AmethystShieldProjectile.png" />
+      <None Remove="Content\Items\Bludgeons\Bludgeon.png" />
+      <None Remove="Content\Items\Bludgeons\BludgeonProjectile.png" />
       <None Remove="Content\Items\CopperShield.png" />
       <None Remove="Content\Items\CopperShieldProjectile.png" />
       <None Remove="Content\Items\EmeraldShield.png" />

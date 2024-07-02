@@ -49,6 +49,17 @@ namespace GuardianClass.Content.Items
             recipe.Register();
         }
 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            var h = $"[i:{ModContent.ItemType<ShieldHeart>()}]";
+
+            var tooltip = tooltips.FirstOrDefault(line => line.Name == "Tooltip0" && line.Mod == "Terraria");
+            var Tip = new TooltipLine(this.Mod, "GuardianTooltip", "");
+
+            Tip.Text = $"Gives all players {h}{h} when you block a projectile\nBlocked projectiles turn into Hellfire Arrows and are reflected back at enemies";
+            tooltips.Insert(tooltips.Count - 1, Tip);
+        }
+
     }
 
     public class HeaterProjectile : GuardianShieldProjectile

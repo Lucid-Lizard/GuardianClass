@@ -7,6 +7,14 @@ namespace GuardianClass;
 
 public class CoolMath
 {
+
+    public static float EaseInBack(double x)
+    {
+        const double c1 = 1.70158;
+        const double c3 = c1 + 1;
+
+        return (float)(c3 * Math.Pow(x, 3) - c1 * Math.Pow(x, 2));
+    }
     public static Microsoft.Xna.Framework.Vector2 PointInRect(Microsoft.Xna.Framework.Rectangle rect)
     {
         return new Microsoft.Xna.Framework.Vector2(Main.rand.Next(0, rect.Width), Main.rand.Next(0, rect.Height));
