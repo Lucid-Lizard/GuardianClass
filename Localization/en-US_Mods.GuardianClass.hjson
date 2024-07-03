@@ -118,6 +118,11 @@ Items: {
 		DisplayName: Bludgeon
 		Tooltip: ""
 	}
+
+	Tectonic: {
+		DisplayName: Tectonic
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -143,6 +148,9 @@ Projectiles: {
 	SapphireShieldProjectile.DisplayName: Sapphire Shield Projectile
 	TopazShieldProjectile.DisplayName: Topaz Shield Projectile
 	BludgeonProjectile.DisplayName: Bludgeon Projectile
+	MaceTileProjectile.DisplayName: Mace Tile Projectile
+	TectonicPlateProjectile.DisplayName: Tectonic Plate Projectile
+	TectonicProjectile.DisplayName: Tectonic Projectile
 }
 
 DamageClasses.GuardianDamage.DisplayName: Guardian Damage

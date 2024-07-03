@@ -21,6 +21,9 @@
       <None Remove="Content\Items\AmethystShieldProjectile.png" />
       <None Remove="Content\Items\Bludgeons\Bludgeon.png" />
       <None Remove="Content\Items\Bludgeons\BludgeonProjectile.png" />
+      <None Remove="Content\Items\Bludgeons\Tectonic.png" />
+      <None Remove="Content\Items\Bludgeons\TectonicPlateProjectile.png" />
+      <None Remove="Content\Items\Bludgeons\TectonicProjectile.png" />
       <None Remove="Content\Items\CopperShield.png" />
       <None Remove="Content\Items\CopperShieldProjectile.png" />
       <None Remove="Content\Items\EmeraldShield.png" />
@@ -41,6 +44,7 @@
       <None Remove="Content\Items\TopazShieldProjectile.png" />
       <None Remove="Content\Items\Warbanners\SkeletonWarbanner.png" />
       <None Remove="Content\Items\Warbanners\SkeletonWarbannerMinion.png" />
+      <None Remove="Content\Projectiles\MaceTileProjectile.png" />
       <None Remove="Content\ShieldHeart.png" />
       <None Remove="Content\Tiles\Trees\IronwoodSapling.png" />
       <None Remove="Content\Tiles\Trees\IronwoodTree.png" />

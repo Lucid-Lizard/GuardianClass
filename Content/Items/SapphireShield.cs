@@ -82,7 +82,7 @@ namespace GuardianClass.Content.Items
 
         public override void StageChangeEffect()
         {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_GemShieldBreak"), Projectile.Center);
             for (var i = 0; i < 3; i++)
             {
                 Dust.NewDust(Projectile.Center, 4, 4, DustID.GemSapphire);
@@ -91,7 +91,7 @@ namespace GuardianClass.Content.Items
 
         public override void ShieldBreakEffect()
         {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_GemShieldBreak"), Projectile.Center);
             for (var i = 0; i < 7; i++)
             {
                 Dust.NewDust(Projectile.Center, 4, 4, DustID.GemSapphire);

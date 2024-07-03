@@ -21,6 +21,8 @@ public class GuardianModPlayer : ModPlayer
     private int IndividualExprireTimer = 0;
     private bool Countdown = false;
 
+    public bool UsingMace = false;
+
     public bool ShieldPolish = false;
     public void AddWard(int num)
     {

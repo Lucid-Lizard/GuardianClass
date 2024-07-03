@@ -17,18 +17,18 @@ using Terraria.ModLoader;
 
 namespace GuardianClass.Content.Items.Bludgeons
 {
-    public class Bludgeon : ModItem
+    public class Tectonic : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 36;
-            Item.height = 36;
+            Item.width = 48;
+            Item.height = 48;
             Item.DamageType = ModContent.GetInstance<GuardianDamage>();
-            Item.knockBack = 6;
-            Item.damage = 18;
+            Item.knockBack = 8;
+            Item.damage = 36;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.shoot = ModContent.ProjectileType<BludgeonProjectile>();            
-            Item.shootSpeed = 45f;
+            Item.shoot = ModContent.ProjectileType<TectonicProjectile>();            
+            Item.shootSpeed = 75f;
             Item.useTime = 1;
             Item.noUseGraphic = true;
         }
@@ -41,13 +41,13 @@ namespace GuardianClass.Content.Items.Bludgeons
         }
     }
 
-    public class BludgeonProjectile : ModProjectile
+    public class TectonicProjectile : ModProjectile
     {
         public override void SetDefaults()
         {
 
-            Projectile.width = 36;
-            Projectile.height = 36;
+            Projectile.width = 48;
+            Projectile.height = 48;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 60;
             Projectile.friendly = true;
@@ -120,7 +120,7 @@ namespace GuardianClass.Content.Items.Bludgeons
             if (Projectile.ai[0]++ < Length && !ImpactBool)
             {
                 
-                Projectile.scale = MathHelper.Lerp(0f, 1, CoolMath.EaseOutBack(Projectile.ai[0] / Length));
+                Projectile.scale = MathHelper.Lerp(0f, 1f, CoolMath.EaseOutBack(Projectile.ai[0] / Length));
 
                 Projectile.velocity = new Vector2(0).RotatedBy(Projectile.rotation);
                 if (dir == 1)
@@ -148,14 +148,14 @@ namespace GuardianClass.Content.Items.Bludgeons
 
         public void Impact()
         {
-            int ImpactWidth = 16;
+            int ImpactWidth = 24;
             for(int i = 0; i < ImpactWidth; i++)
             {
                 Vector2 dustPos = Projectile.Center / 16;
                 dustPos += new Vector2(i - (ImpactWidth / 2), 0);
                 if (!Main.tile[(int)dustPos.X, (int)dustPos.Y].HasTile)
                 {
-                    for(int j = 0; j < 8; j++)
+                    for(int j = 0; j < 100; j++)
                     {
                         dustPos.Y++;
                         if(Main.tile[(int)dustPos.X, (int)dustPos.Y].HasTile)
@@ -164,12 +164,13 @@ namespace GuardianClass.Content.Items.Bludgeons
                         }
                     }
                 }
-                Dust.NewDust(dustPos * 16, 6, 6, DustID.Dirt, 0, -5);
-                if(Main.rand.Next(0,10) <= 3)
+                int d = Dust.NewDust(dustPos * 16, 6, 6, DustID.InfernoFork, 0, -5);
+               
+                if(i % 4 == 0 && i > 0)
                 {
                     Vector2 vel = new Vector2(i - (ImpactWidth / 2), -5);
                     vel *= Main.rand.NextFloat(1f, 2f);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), dustPos * 16, vel, ModContent.ProjectileType<MaceTileProjectile>(), 6, 4f, ai0: Main.tile[(int)dustPos.X, (int)dustPos.Y].TileType);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), dustPos * 16, Vector2.Zero, ModContent.ProjectileType<TectonicPlateProjectile>(), 6, 4f, ai0: i - (ImpactWidth / 2));
                 }
             }
 
@@ -255,6 +256,87 @@ namespace GuardianClass.Content.Items.Bludgeons
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             overPlayers.Add(index);
+        }
+    }
+
+    public class TectonicPlateProjectile : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            Projectile.width = 48;
+            Projectile.height = 148;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = -1;
+            Projectile.timeLeft = 300;
+            Projectile.tileCollide = false;
+            Projectile.alpha = 255;
+            Projectile.hide = true;
+
+        }
+
+        public int timer = 0;
+        public int countdown = 0;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            Projectile.rotation = 0 + (MathHelper.Pi / 35) * Projectile.ai[0];
+        }
+        public override bool PreAI()
+        {
+            Projectile.scale = 0;
+            if(countdown++ > 5 * MathF.Abs(Projectile.ai[0]))
+            {
+                
+                return true;
+            }
+            Projectile.timeLeft = 300;
+            return false;
+        }
+        public override void AI()
+        {
+            if(timer == 0)
+            {
+                SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_Tectonic"), Projectile.Center);
+            }
+            timer++;
+            if(timer <= 265) 
+                Projectile.scale = MathHelper.Lerp(0, 1f, CoolMath.InOutQuadBlend(MathF.Min(timer, 15) / 15));
+            else
+                Projectile.scale = MathHelper.Lerp(1f, 0, CoolMath.EaseInBack(MathF.Min(timer - 265, 35) / 35));
+
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+
+            Main.EntitySpriteDraw(
+               TextureAssets.Projectile[Type].Value,
+               Projectile.position - Main.screenPosition + new Vector2(Projectile.width / 2, Projectile.height / 2),
+               TextureAssets.Projectile[Type].Value.Bounds,
+               lightColor,
+               Projectile.rotation,
+               Vector2.Zero + new Vector2(Projectile.width / 2, Projectile.height - 20),
+               Projectile.scale,
+               Microsoft.Xna.Framework.Graphics.SpriteEffects.None);
+            return true;
+        }
+
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            var rot = Projectile.rotation;
+            var start = Projectile.Center + Projectile.velocity - new Vector2(Projectile.height / 2, 0) * rot;
+            var end = Projectile.Center + Projectile.velocity + new Vector2(Projectile.height / 2, 0) * rot;
+            var collisionPoint = 0f; // Don't need that variable, but required as parameter
+
+            
+
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, Projectile.width, ref collisionPoint);
+        }
+
+        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+        {
+            behindNPCsAndTiles.Add(index);
         }
     }
 }
