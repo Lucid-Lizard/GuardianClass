@@ -56,7 +56,7 @@ public abstract class GuardianShield : ModItem
 
     // TODO: This should probably be handled by ModItem::Shoot().
     public override bool? UseItem(Player player) {
-        if (player.ownedProjectileCounts[ShieldProjectile] == 0) {
+        if (player.ownedProjectileCounts[ShieldProjectile] == 0 && player.GetModPlayer<GuardianModPlayer>().ShieldUsable) {
             Projectile.NewProjectile(player.GetSource_FromThis(), player.position, Vector2.Zero, ShieldProjectile, Item.damage, 0);
         }
 

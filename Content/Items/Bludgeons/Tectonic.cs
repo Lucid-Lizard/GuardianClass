@@ -245,7 +245,7 @@ namespace GuardianClass.Content.Items.Bludgeons
                 TextureAssets.Projectile[Type].Value.Bounds,
                 lightColor,
                 Projectile.rotation + MathHelper.PiOver4,
-                Vector2.Zero + new Vector2(0, 36),
+                Vector2.Zero + new Vector2(0, 48),
                 Projectile.scale,
                 Microsoft.Xna.Framework.Graphics.SpriteEffects.None);
             return false;

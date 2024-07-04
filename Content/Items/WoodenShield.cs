@@ -65,6 +65,7 @@ public class WoodenShieldProjectile : GuardianShieldProjectile
     }
 
     public override void ShieldBreakEffect() {
+        
         SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield1"), Projectile.Center);
         for (var i = 0; i < 7; i++) {
             Dust.NewDust(Projectile.Center, 4, 4, DustID.WoodFurniture);

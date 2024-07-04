@@ -28,6 +28,8 @@
       <None Remove="Content\Items\CopperShieldProjectile.png" />
       <None Remove="Content\Items\EmeraldShield.png" />
       <None Remove="Content\Items\EmeraldShieldProjectile.png" />
+      <None Remove="Content\Items\Heater.png" />
+      <None Remove="Content\Items\HeaterProjectile.png" />
       <None Remove="Content\Items\IronShield.png" />
       <None Remove="Content\Items\IronShieldProjectile.png" />
       <None Remove="Content\Items\LeadShield.png" />

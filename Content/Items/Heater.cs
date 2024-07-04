@@ -27,7 +27,7 @@ namespace GuardianClass.Content.Items
             SpawnTime = 15;
             ThrustTime = 17;
 
-            DurabilityStages = 1;
+            DurabilityStages = 3;
             Resistance = 0.23f;
 
             AttackDistance = 26;
@@ -64,6 +64,7 @@ namespace GuardianClass.Content.Items
 
     public class HeaterProjectile : GuardianShieldProjectile
     {
+
         public override void SetDefaults()
         {
             TextureName = "HeaterProjectile";
@@ -72,27 +73,28 @@ namespace GuardianClass.Content.Items
             Projectile.width = 40;
             Projectile.height = 30;
 
+            wooshfx = "GuardianClass/Assets/Sounds/GuardianSounds_HeaterWoosh";
         }
 
         public override void BlockNPCEffect(NPC npc)
         {
 
             npc.AddBuff(BuffID.OnFire, 120);
-            //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_HeaterSizzle").WithVolumeScale(0.5f), Projectile.Center);
 
-            
+            Gore.NewGore(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity, new Vector2(0, -1), GoreID.Smoke1);
         }
 
         public override void StrikeNPCEffect(NPC npc)
         {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShieldNPCBlock"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_HeaterSizzle"));
             //npc.AddBuff(BuffID.Confused, 120);
             npc.AddBuff(BuffID.OnFire, 120);
         }
 
         public override void BlockProjectileEffect(Projectile proj)
         {
-            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_ArrowWoodImpact"));
+            SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_HeaterSizzle"));
 
             Vector2 vel = Projectile.velocity;
             vel.Normalize();
@@ -145,8 +147,18 @@ namespace GuardianClass.Content.Items
 
             Projectile.ai[0]++;
 
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
-            Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * 1), Projectile.width, Projectile.height), Color.White * 0.5f, Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, Scale + (0.5f * MathF.Sin(Projectile.ai[0] / 100)), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+
+            float opacity = (float)((CalculateDurabilityStage(3, Durability, shieldItem.MaxDurability)+ 1)/ (float)shieldItem.DurabilityStages);
+            opacity = 1 - opacity;
+           
+
+            Main.EntitySpriteDraw(texture, position - Main.screenPosition, new Rectangle(0, 0 + ((Projectile.height + 2) * 3), Projectile.width, Projectile.height), Color.Yellow * opacity, Projectile.rotation, new Vector2(Projectile.width, Projectile.height) / 2f, Scale + (0.1f * MathF.Sin(Projectile.ai[0] / 100)), shouldflip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
             base.PostDraw(lightColor);
         }

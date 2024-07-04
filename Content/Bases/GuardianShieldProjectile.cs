@@ -44,6 +44,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
 
     public int previousStage;
 
+    public int BreakCooldown = 80;
+
     public bool putAway = false;
     public int putAwayAnimTimer;
     public bool putOut = true;
@@ -59,6 +61,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
     public virtual void BlockNPCEffect(NPC npc) { }
     public virtual void StageChangeEffect() { }
     public virtual void ShieldBreakEffect() { }
+   
+    
 
     public virtual void DespawnEffect() { }
 
@@ -132,6 +136,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
         return true;
     }
 
+    public string wooshfx = null;
     public override void AI() {
 
         GuardianSystem.shieldData[Projectile].durability = Durability;
@@ -174,7 +179,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
                     AttackTimer = 0;
                     state = ShieldState.ThrustStart;
                     CanAttack = false;
-                    SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield3"), Projectile.Center);
+                    SoundEngine.PlaySound(wooshfx == null ? new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield3") : new SoundStyle(wooshfx), Projectile.Center);;
                 }
 
                 break;
@@ -225,7 +230,8 @@ public abstract class GuardianShieldProjectile : ModProjectile
             }
             case ShieldState.Break: {
                 g.LastDurability = -1;
-                Projectile.Kill();
+                    g.SetCooldown(BreakCooldown);
+                    Projectile.Kill();
                 break;
             }
         }
@@ -370,7 +376,7 @@ public abstract class GuardianShieldProjectile : ModProjectile
             }
 
             case ShieldState.Break: {
-                ShieldBreakEffect();
+                
                 //SoundEngine.PlaySound(new SoundStyle("GuardianClass/Assets/Sounds/GuardianSounds_WoodenShield2"), Projectile.Center);
                 g.LastDurability = -1;
                 break;
